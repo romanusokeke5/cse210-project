@@ -1,57 +1,58 @@
 // Program.cs
+using System;
+using System.Collections.Generic;
+
 public class Program
 {
     public static void Main(string[] args)
     {
-        // Create addresses
-        Address usaAddress1 = new Address("123 Main St", "Provo", "UT", "USA");
-        Address nonUsaAddress1 = new Address("456 International Blvd", "London", "", "UK");
-        Address usaAddress2 = new Address("789 Pine Ave", "New York", "NY", "USA");
+        // Create videos
+        Video video1 = new Video("Amazing Space Facts", "Cosmic Explorer", 360);
+        Video video2 = new Video("Learn Python in 10 Minutes", "Code Master", 600);
+        Video video3 = new Video("Delicious Chocolate Cake Recipe", "Baking Queen", 480);
+        Video video4 = new Video("Funny Cat Compilation", "Laugh Factory", 240);
 
-        // Create customers
-        Customer customer1 = new Customer("John Doe", usaAddress1);
-        Customer customer2 = new Customer("Jane Smith", nonUsaAddress1);
-        Customer customer3 = new Customer("Peter Jones", usaAddress2);
+        // Add comments to video 1
+        video1.AddComment(new Comment("User123", "Great video! I learned a lot."));
+        video1.AddComment(new Comment("SpaceFan", "The visuals are stunning!"));
+        video1.AddComment(new Comment("CuriousMind", "Could you make more videos on black holes?"));
+        video1.AddComment(new Comment("AstroGuy", "Awesome facts!"));
 
-        // Create products
-        Product product1 = new Product("Laptop", "LAP-001", 1200.00, 1);
-        Product product2 = new Product("Mouse", "MOU-002", 25.00, 2);
-        Product product3 = new Product("Keyboard", "KEY-003", 75.00, 1);
-        Product product4 = new Product("Monitor", "MON-004", 300.00, 1);
+        // Add comments to video 2
+        video2.AddComment(new Comment("CoderBeginner", "This was very helpful, thank you!"));
+        video2.AddComment(new Comment("PythonLover", "Excellent introduction to Python."));
+        video2.AddComment(new Comment("TechGuru", "Well-explained concepts."));
 
-        // Create orders
-        Order order1 = new Order(customer1);
-        order1.AddProduct(product1);
-        order1.AddProduct(product2);
+        // Add comments to video 3
+        video3.AddComment(new Comment("SweetTooth", "I'm definitely trying this recipe!"));
+        video3.AddComment(new Comment("BakeLover", "Looks so yummy!"));
+        video3.AddComment(new Comment("ChocolateAddict", "My favorite!"));
+        video3.AddComment(new Comment("HomeBaker", "Thanks for sharing!"));
 
-        Order order2 = new Order(customer2);
-        order2.AddProduct(product3);
-        order2.AddProduct(product4);
-        order2.AddProduct(product1);
+        // Add comments to video 4
+        video4.AddComment(new Comment("CatFanatic", "So cute!"));
+        video4.AddComment(new Comment("FunnyGuy", "I laughed so hard!"));
+        video4.AddComment(new Comment("AnimalLover", "These cats are hilarious!"));
+        video4.AddComment(new Comment("MemeLord", "Purrfect!"));
 
-        Order order3 = new Order(customer3);
-        order3.AddProduct(product2);
-        order3.AddProduct(product4);
+        // Create a list of videos
+        List<Video> videos = new List<Video>() { video1, video2, video3, video4 };
 
-        // Display order 1 information
-        Console.WriteLine($"--- Order 1 for {order1.Customer.Name} ---");
-        Console.WriteLine(order1.GetPackingLabel());
-        Console.WriteLine(order1.GetShippingLabel());
-        Console.WriteLine($"Total Cost: ${order1.CalculateTotalCost()}");
-        Console.WriteLine();
+        // Iterate through the list of videos and display information
+        foreach (var video in videos)
+        {
+            Console.WriteLine($"Title: {video.Title}");
+            Console.WriteLine($"Author: {video.Author}");
+            Console.WriteLine($"Length: {video.LengthInSeconds} seconds");
+            Console.WriteLine($"Number of Comments: {video.GetNumberOfComments()}");
+            Console.WriteLine("Comments:");
+            foreach (var comment in video.Comments)
+            {
+                Console.WriteLine($"- {comment.CommenterName}: {comment.Text}");
+            }
+            Console.WriteLine();
+        }
 
-        // Display order 2 information
-        Console.WriteLine($"--- Order 2 for {order2.Customer.Name} ---");
-        Console.WriteLine(order2.GetPackingLabel());
-        Console.WriteLine(order2.GetShippingLabel());
-        Console.WriteLine($"Total Cost: ${order2.CalculateTotalCost()}");
-        Console.WriteLine();
-
-        // Display order 3 information
-        Console.WriteLine($"--- Order 3 for {order3.Customer.Name} ---");
-        Console.WriteLine(order3.GetPackingLabel());
-        Console.WriteLine(order3.GetShippingLabel());
-        Console.WriteLine($"Total Cost: ${order3.CalculateTotalCost()}");
-        Console.WriteLine();
+        Console.WriteLine("End of video list.");
     }
 }
